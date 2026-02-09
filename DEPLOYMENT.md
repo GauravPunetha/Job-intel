@@ -12,7 +12,7 @@ This guide covers deploying the Job Intelligence Platform to production.
 5. Set these values:
    - **Name:** job-intel (or your choice)
    - **Environment:** Python 3
-   - **Build Command:** `pip install -r requirements_frontend.txt`
+   - **Build Command:** `pip install -r requirements.txt`
    - **Start Command:** `gunicorn wsgi:app`
    - **Instance Type:** Free
 

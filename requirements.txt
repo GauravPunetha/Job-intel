@@ -1,8 +1,9 @@
 
+# Production dependencies
+flask==2.3.0
+gunicorn==21.2.0
+
+# Optional: data collection and processing tools
 requests>=2.31.0
 pandas>=2.1.0
-scrapy>=2.11.0
-playwright>=1.42.0
 python-dotenv>=1.0.0
-# Optional: only if you plan to run the DAGs locally
-apache-airflow>=2.8.0 ; python_version>='3.8'
