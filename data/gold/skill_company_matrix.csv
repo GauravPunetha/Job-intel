@@ -1,0 +1,21 @@
+skill,company,job_count
+spark,databricks,1368
+databricks,databricks,1368
+excel,databricks,1368
+leadership,databricks,826
+machine learning,databricks,436
+python,databricks,436
+communication,databricks,392
+scala,databricks,386
+aws,databricks,374
+azure,databricks,370
+sql,databricks,340
+gcp,databricks,332
+java,databricks,328
+go,databricks,266
+prometheus,databricks,258
+kubernetes,databricks,128
+hadoop,databricks,84
+jenkins,databricks,80
+etl,databricks,76
+kafka,databricks,70

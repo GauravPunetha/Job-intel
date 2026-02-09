@@ -1,0 +1,4 @@
+company,total_jobs,unique_locations,avg_salary,jobs_with_salary,top_skills
+databricks,1368,114,24.0,162,spark; databricks; excel; leadership; machine learning
+cloudflare,1235,7,0,0,
+stripe,1192,238,0,0,

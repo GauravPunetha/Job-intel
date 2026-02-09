@@ -1,0 +1,206 @@
+{
+  "spark": {
+    "aliases": ["apache spark", "pyspark", "spark sql"],
+    "jsc_id": "DE_SPARK"
+  },
+  "databricks": {
+    "aliases": ["databricks"],
+    "jsc_id": "DE_DATABRICKS"
+  },
+  "python": {
+    "aliases": ["py", "python programming"],
+    "jsc_id": "CORE_PYTHON"
+  },
+  "scala": {
+    "aliases": ["scala programming"],
+    "jsc_id": "DE_SCALA"
+  },
+  "sql": {
+    "aliases": ["structured query language", "sql query", "tsql", "mysql", "postgresql", "sqlite"],
+    "jsc_id": "CORE_SQL"
+  },
+  "java": {
+    "aliases": ["java programming"],
+    "jsc_id": "CORE_JAVA"
+  },
+  "aws": {
+    "aliases": ["amazon web services", "ec2", "s3", "lambda", "rds", "dynamodb", "sqs"],
+    "jsc_id": "CLOUD_AWS"
+  },
+  "azure": {
+    "aliases": ["microsoft azure", "azure data factory", "azure ml", "azure devops"],
+    "jsc_id": "CLOUD_AZURE"
+  },
+  "gcp": {
+    "aliases": ["google cloud", "bigquery", "google cloud platform", "firestore", "dataflow"],
+    "jsc_id": "CLOUD_GCP"
+  },
+  "machine learning": {
+    "aliases": ["ml", "deep learning", "machine learning", "neural networks"],
+    "jsc_id": "AI_ML"
+  },
+  "kubernetes": {
+    "aliases": ["k8s", "container orchestration"],
+    "jsc_id": "DEVOPS_K8S"
+  },
+  "docker": {
+    "aliases": ["containerization", "containers"],
+    "jsc_id": "DEVOPS_DOCKER"
+  },
+  "hadoop": {
+    "aliases": ["hdfs", "mapreduce"],
+    "jsc_id": "DE_HADOOP"
+  },
+  "tensorflow": {
+    "aliases": ["tensorflow"],
+    "jsc_id": "AI_TENSORFLOW"
+  },
+  "pytorch": {
+    "aliases": ["pytorch"],
+    "jsc_id": "AI_PYTORCH"
+  },
+  "linux": {
+    "aliases": ["linux operating system", "unix", "centos", "ubuntu"],
+    "jsc_id": "CORE_LINUX"
+  },
+  "git": {
+    "aliases": ["version control", "github", "gitlab", "bitbucket"],
+    "jsc_id": "DEVOPS_GIT"
+  },
+  "excel": {
+    "aliases": ["spreadsheet", "microsoft excel", "vba"],
+    "jsc_id": "TOOLS_EXCEL"
+  },
+  "tableau": {
+    "aliases": ["tableau visualization"],
+    "jsc_id": "BI_TABLEAU"
+  },
+  "power bi": {
+    "aliases": ["powerbi", "power-bi", "microsoft power bi"],
+    "jsc_id": "BI_POWERBI"
+  },
+  "javascript": {
+    "aliases": ["js", "nodejs", "node.js", "typescript"],
+    "jsc_id": "CORE_JS"
+  },
+  "rust": {
+    "aliases": ["rust programming"],
+    "jsc_id": "CORE_RUST"
+  },
+  "go": {
+    "aliases": ["golang", "go programming"],
+    "jsc_id": "CORE_GO"
+  },
+  "pandas": {
+    "aliases": ["pandas library", "data analysis"],
+    "jsc_id": "DE_PANDAS"
+  },
+  "apache airflow": {
+    "aliases": ["airflow", "dag", "workflow orchestration"],
+    "jsc_id": "DE_AIRFLOW"
+  },
+  "kafka": {
+    "aliases": ["apache kafka", "message streaming"],
+    "jsc_id": "DE_KAFKA"
+  },
+  "dbt": {
+    "aliases": ["data build tool"],
+    "jsc_id": "DE_DBT"
+  },
+  "elasticsearch": {
+    "aliases": ["elastic", "search engine"],
+    "jsc_id": "DE_ELASTICSEARCH"
+  },
+  "mongodb": {
+    "aliases": ["nosql", "document database"],
+    "jsc_id": "DB_MONGODB"
+  },
+  "redis": {
+    "aliases": ["caching", "in-memory database"],
+    "jsc_id": "DB_REDIS"
+  },
+  "react": {
+    "aliases": ["reactjs", "react.js"],
+    "jsc_id": "WEB_REACT"
+  },
+  "vue": {
+    "aliases": ["vuejs", "vue.js"],
+    "jsc_id": "WEB_VUE"
+  },
+  "angular": {
+    "aliases": ["angularjs"],
+    "jsc_id": "WEB_ANGULAR"
+  },
+  "rest api": {
+    "aliases": ["rest", "restful", "api design"],
+    "jsc_id": "WEB_RESTAPI"
+  },
+  "graphql": {
+    "aliases": ["graphql api"],
+    "jsc_id": "WEB_GRAPHQL"
+  },
+  "jenkins": {
+    "aliases": ["ci/cd", "continuous integration"],
+    "jsc_id": "DEVOPS_JENKINS"
+  },
+  "terraform": {
+    "aliases": ["iac", "infrastructure as code"],
+    "jsc_id": "DEVOPS_TERRAFORM"
+  },
+  "ansible": {
+    "aliases": ["configuration management"],
+    "jsc_id": "DEVOPS_ANSIBLE"
+  },
+  "prometheus": {
+    "aliases": ["monitoring", "metrics"],
+    "jsc_id": "DEVOPS_PROMETHEUS"
+  },
+  "grafana": {
+    "aliases": ["visualization", "dashboard"],
+    "jsc_id": "DEVOPS_GRAFANA"
+  },
+  "scikit-learn": {
+    "aliases": ["sklearn", "scikit", "machine learning library"],
+    "jsc_id": "AI_SKLEARN"
+  },
+  "numpy": {
+    "aliases": ["numerical python"],
+    "jsc_id": "DE_NUMPY"
+  },
+  "spark sql": {
+    "aliases": ["sparksql"],
+    "jsc_id": "DE_SPARKSQL"
+  },
+  "hive": {
+    "aliases": ["apache hive"],
+    "jsc_id": "DE_HIVE"
+  },
+  "presto": {
+    "aliases": ["trino"],
+    "jsc_id": "DE_PRESTO"
+  },
+  "snowflake": {
+    "aliases": ["cloud warehouse"],
+    "jsc_id": "DE_SNOWFLAKE"
+  },
+  "looker": {
+    "aliases": ["looker bi"],
+    "jsc_id": "BI_LOOKER"
+  },
+  "qlik": {
+    "aliases": ["qlikview", "qlik sense"],
+    "jsc_id": "BI_QLIK"
+  },
+  "etl": {
+    "aliases": ["extract transform load", "data pipeline"],
+    "jsc_id": "DE_ETL"
+  },
+  "communication": {
+    "aliases": ["communication skills", "soft skills"],
+    "jsc_id": "SOFT_COMM"
+  },
+  "leadership": {
+    "aliases": ["management", "team leadership"],
+    "jsc_id": "SOFT_LEADERSHIP"
+  }
+}

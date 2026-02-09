@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Intelligence - Smart Job Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Filters Section */
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .filter-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Jobs Section */
+        #jobsSection {
+            margin-top: 40px;
+            padding-top: 20px;
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .job-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .job-company {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .job-location {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: #f0f0f0;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .job-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .job-link:hover {
+            color: #764ba2;
+            border-bottom-color: #764ba2;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            min-width: 40px;
+        }
+
+        .pagination button.active {
+            background: #764ba2;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading & Empty States */
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            padding: 40px;
+        }
+
+        .empty {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            padding: 40px;
+        }
+
+        .top-lists {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .top-list {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-list h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-count {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .jobs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-group {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-title-section h2 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .modal-title-section .company-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail-section {
+            display: block;
+        }
+
+        .detail-section[style*="display: none"] {
+            display: none !important;
+        }
+
+        .detail-section h3 {
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .detail-value a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .detail-value a:hover {
+            color: #764ba2;
+            border-bottom-color: #764ba2;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            display: inline-block;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+
+        .description-section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .description-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .description-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.8;
+            word-break: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .description-text p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .description-text ul, .description-text ol {
+            margin: 15px 0 15px 25px;
+            color: #333;
+        }
+
+        .description-text li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .description-text strong {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .description-text em {
+            font-style: italic;
+            color: #555;
+        }
+
+        .description-text a {
+            color: #667eea;
+            text-decoration: none;
+            border-bottom: 1px solid #667eea;
+        }
+
+        .description-text a:hover {
+            color: #764ba2;
+            border-bottom-color: #764ba2;
+        }
+
+        .description-text h1, .description-text h2, .description-text h3, .description-text h4, .description-text h5 {
+            color: #667eea;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .apply-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            flex: 1;
+            background: #f0f0f0;
+            color: #666;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .job-card {
+            cursor: pointer;
+        }
+
+        .empty-value {
+            color: #999;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-title-section h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💼 Job Intelligence</h1>
+            <p class="subtitle">Smart job search powered by AI-driven skill analysis</p>
+            
+            <div class="stats" id="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalJobs">-</div>
+                    <div class="stat-label">Total Jobs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLocations">-</div>
+                    <div class="stat-label">Locations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSkills">-</div>
+                    <div class="stat-label">Skills Mapped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="dataSources">-</div>
+                    <div class="stat-label">Data Sources</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="filters">
+            <h3>🔍 Search & Filter</h3>
+            <div class="filter-group">
+                <input type="text" id="searchInput" placeholder="Search job title...">
+                <select id="locationSelect">
+                    <option value="">All Locations</option>
+                </select>
+                <select id="skillSelect">
+                    <option value="">All Skills</option>
+                </select>
+                <select id="sourceSelect">
+                    <option value="">All Sources</option>
+                </select>
+                <button onclick="searchJobs()">🔍 Search</button>
+            </div>
+        </div>
+
+        <div class="top-lists" id="topLists" style="display: none;">
+            <div class="top-list">
+                <h3>🏆 Top Locations</h3>
+                <div id="topLocations"></div>
+            </div>
+            <div class="top-list">
+                <h3>⭐ Top Skills</h3>
+                <div id="topSkills"></div>
+            </div>
+        </div>
+
+        <div id="jobsSection">
+            <div class="jobs-container" id="jobsContainer"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+
+    <!-- Job Detail Modal -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <h2 id="modalJobTitle"></h2>
+                    <span class="company-badge" id="modalCompanyBadge"></span>
+                </div>
+                <button class="close-modal" onclick="closeJobModal()">&times;</button>
+            </div>
+
+            <div class="detail-grid">
+                <div class="detail-section">
+                    <h3>📍 Location</h3>
+                    <div class="detail-value" id="modalLocation">-</div>
+                </div>
+                <div class="detail-section">
+                    <h3>💼 Company</h3>
+                    <div class="detail-value" id="modalCompany">-</div>
+                </div>
+                <div class="detail-section">
+                    <h3>📊 Source</h3>
+                    <div class="detail-value" id="modalSource">-</div>
+                </div>
+                <div class="detail-section">
+                    <h3>💰 Salary</h3>
+                    <div class="detail-value" id="modalSalary">-</div>
+                </div>
+                <div class="detail-section">
+                    <h3>📅 Posted Date</h3>
+                    <div class="detail-value" id="modalPostedAt">-</div>
+                </div>
+                <div class="detail-section">
+                    <h3>🏢 Department</h3>
+                    <div class="detail-value" id="modalDepartment">-</div>
+                </div>
+            </div>
+
+            <div class="detail-section" style="grid-column: 1/-1;">
+                <h3>⭐ Required Skills (Click to view jobs with this skill)</h3>
+                <div class="skills-container" id="modalSkills">
+                    <span class="empty-value">No skills data available</span>
+                </div>
+            </div>
+
+            <div class="description-section" id="descriptionSection" style="display: none;">
+                <h3>📝 Job Description</h3>
+                <div class="description-text" id="modalDescription"></div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="apply-btn" id="applyBtn" onclick="applyToJob()">🚀 Apply Now</button>
+                <button class="close-btn" onclick="closeJobModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const jobsPerPage = 20;
+        let allJobs = [];
+        let currentJobIndex = null;
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                document.getElementById('totalJobs').textContent = data.total_jobs.toLocaleString();
+                document.getElementById('totalLocations').textContent = data.total_locations;
+                document.getElementById('totalSkills').textContent = data.total_skills;
+                document.getElementById('dataSources').textContent = data.data_sources.length;
+                
+                // Show top lists
+                document.getElementById('topLists').style.display = 'grid';
+                
+                // Top locations
+                const locationsHtml = Object.entries(data.top_locations)
+                    .map(([loc, count]) => `
+                        <div class="list-item">
+                            <span>${loc}</span>
+                            <span class="list-count">${count}</span>
+                        </div>
+                    `).join('');
+                document.getElementById('topLocations').innerHTML = locationsHtml;
+                
+                // Top skills
+                const skillsHtml = Object.entries(data.top_skills)
+                    .map(([skill, count]) => `
+                        <div class="list-item">
+                            <span>${skill}</span>
+                            <span class="list-count">${count}</span>
+                        </div>
+                    `).join('');
+                document.getElementById('topSkills').innerHTML = skillsHtml;
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadLocations() {
+            try {
+                const response = await fetch('/api/locations');
+                const data = await response.json();
+                const select = document.getElementById('locationSelect');
+                data.locations.forEach(loc => {
+                    const option = document.createElement('option');
+                    option.value = loc;
+                    option.textContent = loc;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading locations:', error);
+            }
+        }
+
+        async function loadSkills() {
+            try {
+                const response = await fetch('/api/skills');
+                const data = await response.json();
+                const select = document.getElementById('skillSelect');
+                data.skills.forEach(skill => {
+                    const option = document.createElement('option');
+                    option.value = skill;
+                    option.textContent = skill;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading skills:', error);
+            }
+        }
+
+        async function loadSources() {
+            try {
+                const response = await fetch('/api/sources');
+                const data = await response.json();
+                const select = document.getElementById('sourceSelect');
+                data.sources.forEach(source => {
+                    const option = document.createElement('option');
+                    option.value = source;
+                    option.textContent = source;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading sources:', error);
+            }
+        }
+
+        async function searchJobs(page = 1) {
+            const search = document.getElementById('searchInput').value;
+            const location = document.getElementById('locationSelect').value;
+            const skill = document.getElementById('skillSelect').value;
+            const source = document.getElementById('sourceSelect').value;
+            
+            try {
+                const params = new URLSearchParams({
+                    page,
+                    limit: jobsPerPage,
+                    ...(search && { search }),
+                    ...(location && { location }),
+                    ...(skill && { skill }),
+                    ...(source && { source })
+                });
+                
+                const response = await fetch(`/api/jobs?${params}`);
+                const data = await response.json();
+                
+                currentPage = page;
+                allJobs = data.jobs;
+                displayJobs(data.jobs);
+                displayPagination(data.pages, page);
+            } catch (error) {
+                console.error('Error searching jobs:', error);
+                document.getElementById('jobsContainer').innerHTML = '<div class="empty">Error loading jobs</div>';
+            }
+        }
+
+        function displayJobs(jobs) {
+            const container = document.getElementById('jobsContainer');
+            
+            if (jobs.length === 0) {
+                container.innerHTML = '<div class="empty">No jobs found</div>';
+                allJobs = [];
+                return;
+            }
+            
+            // Store jobs for modal access
+            allJobs = jobs;
+            
+            container.innerHTML = jobs.map((job, index) => `
+                <div class="job-card" onclick="openJobModal(${index})">
+                    <div class="job-company">${job.source}</div>
+                    <div class="job-title">${job.title}</div>
+                    <div class="job-location">📍 ${job.location || 'Not specified'}</div>
+                    ${job.skills ? `
+                        <div class="job-skills">
+                            ${job.skills.slice(0, 3).map(s => `
+                                <span class="skill-tag">${s.skill_canonical}</span>
+                            `).join('')}
+                            ${job.skills.length > 3 ? `<span class="skill-tag">+${job.skills.length - 3}</span>` : ''}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function displayPagination(totalPages, currentPage) {
+            const pagination = document.getElementById('pagination');
+            let html = '';
+            
+            if (currentPage > 1) {
+                html += `<button onclick="searchJobs(${currentPage - 1})">← Previous</button>`;
+            }
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="active" onclick="searchJobs(${i})">${i}</button>`;
+                } else if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    html += `<button onclick="searchJobs(${i})">${i}</button>`;
+                } else if (i === 2 || i === totalPages - 1) {
+                    html += `<span>...</span>`;
+                }
+            }
+            
+            if (currentPage < totalPages) {
+                html += `<button onclick="searchJobs(${currentPage + 1})">Next →</button>`;
+            }
+            
+            pagination.innerHTML = html;
+        }
+
+        function openJobModal(index) {
+            console.log('Opening modal for job index:', index);
+            console.log('All jobs:', allJobs);
+            
+            if (index < 0 || index >= allJobs.length) {
+                console.error('Invalid index:', index);
+                return;
+            }
+            
+            const job = allJobs[index];
+            console.log('Job object:', job);
+            currentJobIndex = index;
+            
+            // Populate modal
+            document.getElementById('modalJobTitle').textContent = job.title || 'N/A';
+            document.getElementById('modalCompanyBadge').textContent = job.source || 'Unknown';
+            document.getElementById('modalCompany').textContent = job.employer || 'Not specified';
+            document.getElementById('modalLocation').textContent = job.location || 'Not specified';
+            document.getElementById('modalSource').textContent = job.source || 'Not specified';
+            
+            // Salary field - hide if not available
+            const salaryField = document.querySelector('[id="modalSalary"]').parentElement;
+            if (job.salary) {
+                document.getElementById('modalSalary').textContent = job.salary;
+                salaryField.style.display = 'block';
+            } else {
+                salaryField.style.display = 'none';
+            }
+            
+            // Posted date field - hide if not available
+            const postedField = document.querySelector('[id="modalPostedAt"]').parentElement;
+            if (job.posted_at) {
+                document.getElementById('modalPostedAt').textContent = job.posted_at;
+                postedField.style.display = 'block';
+            } else {
+                postedField.style.display = 'none';
+            }
+            
+            // Department field - hide if not available
+            const deptField = document.querySelector('[id="modalDepartment"]').parentElement;
+            if (job.departments && job.departments.length > 0) {
+                document.getElementById('modalDepartment').textContent = job.departments.join(', ');
+                deptField.style.display = 'block';
+            } else {
+                deptField.style.display = 'none';
+            }
+            
+            // Skills
+            const skillsContainer = document.getElementById('modalSkills');
+            if (job.skills && job.skills.length > 0) {
+                skillsContainer.innerHTML = job.skills.map(s => `
+                    <span class="skill-badge" title="Frequency: ${s.freq || 'N/A'}" onclick="filterBySkill('${s.skill_canonical}'); closeJobModal();">
+                        ${s.skill_canonical}
+                    </span>
+                `).join('');
+            } else {
+                skillsContainer.innerHTML = '<span class="empty-value">No skills data available</span>';
+            }
+            
+            // Description
+            const descSection = document.getElementById('descriptionSection');
+            const modalDescElement = document.getElementById('modalDescription');
+            if (job.description_text && job.description_text.trim()) {
+                try {
+                    // First, try to clean and set as HTML
+                    const cleanedHtml = cleanDescription(job.description_text);
+                    console.log('Cleaned HTML:', cleanedHtml.substring(0, 200));
+                    modalDescElement.innerHTML = '';  // Clear first
+                    modalDescElement.innerHTML = cleanedHtml;
+                    descSection.style.display = 'block';
+                } catch (e) {
+                    console.error('Error setting description:', e);
+                    // Fallback: just show plain text
+                    modalDescElement.innerHTML = '<p>' + job.description_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
+                    descSection.style.display = 'block';
+                }
+            } else {
+                descSection.style.display = 'none';
+            }
+            
+            // Apply button
+            const applyBtn = document.getElementById('applyBtn');
+            if (job.url || job.absolute_url) {
+                applyBtn.style.display = 'block';
+                applyBtn.onclick = () => applyToJob();
+            } else {
+                applyBtn.style.display = 'none';
+            }
+            
+            // Show modal
+            document.getElementById('jobModal').classList.add('show');
+        }
+
+        function closeJobModal() {
+            document.getElementById('jobModal').classList.remove('show');
+            currentJobIndex = null;
+        }
+
+        function applyToJob() {
+            if (currentJobIndex !== null && allJobs[currentJobIndex]) {
+                const job = allJobs[currentJobIndex];
+                const url = job.url || job.absolute_url;
+                if (url) {
+                    window.open(url, '_blank');
+                } else {
+                    alert('No application URL available for this job');
+                }
+            }
+        }
+
+        function cleanDescription(html) {
+            if (!html) return '';
+            
+            try {
+                // Create a temporary container
+                const temp = document.createElement('div');
+                temp.innerHTML = html;
+                
+                // Remove elements with data-pm-slice
+                temp.querySelectorAll('[data-pm-slice]').forEach(el => {
+                    el.removeAttribute('data-pm-slice');
+                });
+                
+                // Remove content-conclusion divs but keep their content
+                temp.querySelectorAll('.content-conclusion').forEach(el => {
+                    const parent = el.parentNode;
+                    while (el.firstChild) {
+                        parent.insertBefore(el.firstChild, el);
+                    }
+                    parent.removeChild(el);
+                });
+                
+                // Remove nested content-conclusion divs
+                temp.querySelectorAll('div').forEach(div => {
+                    if (div.className.includes('content-conclusion')) {
+                        while (div.firstChild) {
+                            div.parentNode.insertBefore(div.firstChild, div);
+                        }
+                        div.parentNode.removeChild(div);
+                    }
+                });
+                
+                // Clean attributes from all elements
+                temp.querySelectorAll('*').forEach(el => {
+                    // Remove style, data attributes, and other junk
+                    const attrsToRemove = [];
+                    for (let attr of el.attributes) {
+                        if (attr.name !== 'href' && attr.name !== 'src' && attr.name !== 'alt' && attr.name !== 'title') {
+                            attrsToRemove.push(attr.name);
+                        }
+                    }
+                    attrsToRemove.forEach(attr => el.removeAttribute(attr));
+                });
+                
+                return temp.innerHTML;
+            } catch (e) {
+                console.error('Error cleaning HTML:', e);
+                return html;
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('jobModal');
+            if (event.target === modal) {
+                closeJobModal();
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadStats();
+            loadLocations();
+            loadSkills();
+            loadSources();
+            searchJobs();
+            
+            // Add event listeners for auto-search on filter changes
+            document.getElementById('locationSelect').addEventListener('change', () => {
+                console.log('Location changed, searching...');
+                searchJobs(1);
+            });
+            
+            document.getElementById('skillSelect').addEventListener('change', () => {
+                console.log('Skill changed, searching...');
+                searchJobs(1);
+            });
+            
+            document.getElementById('sourceSelect').addEventListener('change', () => {
+                console.log('Source changed, searching...');
+                searchJobs(1);
+            });
+        });
+
+        // Search on enter key
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') searchJobs();
+            });
+        });
+    </script>
+</body>
+</html>
