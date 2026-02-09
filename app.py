@@ -162,4 +162,10 @@ if __name__ == '__main__':
     print(f"📊 Jobs loaded: {len(JOBS)}")
     print(f"⭐ Skills loaded: {len(SKILLS)}")
     print("="*70 + "\n")
-    app.run(debug=True, host='127.0.0.1', port=5000, use_reloader=False)
+    
+    # Use environment variable for production
+    debug_mode = os.getenv('FLASK_ENV') != 'production'
+    host = os.getenv('HOST', '0.0.0.0')
+    port = int(os.getenv('PORT', 5000))
+    
+    app.run(debug=debug_mode, host=host, port=port, use_reloader=False)
